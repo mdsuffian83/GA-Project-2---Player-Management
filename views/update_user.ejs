@@ -1,0 +1,83 @@
+<!-- include header -->
+<%- include('include/_header')%>
+<!-- /include header -->
+
+<!-- Main Site -->
+<main id="site-main">
+   <div class="container">
+      <div class="box-nav d-flex justify-between">
+         <div class="filter">
+            <a href="/"><i class="fas fa-angle-double-left"></i>All Players</a>
+         </div>
+      </div>
+      <div class="form-title text-center">
+         <h2 class="text-dark">Update Player</h2>
+         <span class="text-light">Use the below to update a player account</span>
+      </div>
+
+      <!-- add user form -->
+      <!-- form handling-->
+<form method="POST" id="update_user">
+   <div class="new_user">
+      <div class="form-group">
+         <label for="name" class="text-light">Name</label>
+         <input type="hidden" name="id" value="<%= user._id %>">
+         <input type="text" name="name" value="<%= user.name %>" placeholder="Mark Stoenis">
+      </div>
+      <div class="form-group">
+            <label for="position" class="text-light">Position</label>
+            <div class="radio inline">
+               <input type="radio" id="radio-2" name="position" value="Goalkeeper" <%= user.position == 'Goalkeeper' ? 'checked' : '' %>>
+               <label for="radio-2" class="radio-label">Goalkeeper</label>
+            </div>
+            <div class="radio inline">
+               <input type="radio" id="radio-3" name="position" value="Defender" <%= user.position == 'Defender' ? 'checked' : '' %>>
+               <label for="radio-3" class="radio-label">Defender</label>
+            </div>
+            <div class="radio inline">
+               <input type="radio" id="radio-4" name="position" value="Midfield" <%= user.position == 'Midfield' ? 'checked' : '' %>>
+               <label for="radio-4" class="radio-label">Midfield</label>
+            </div>
+            <div class="radio inline">
+               <input type="radio" id="radio-5" name="position" value="Striker" <%= user.position == 'Striker' ? 'checked' : '' %>>
+               <label for="radio-5" class="radio-label">Striker</label>
+            </div>
+         </div>
+      <div class="form-group">
+         <label for="team" class="text-light">Team</label>
+         <div class="radio inline">
+            <input type="radio" id="radio-6" name="team" value="First-Team" <%= user.team == 'First-Team' ? 'checked' : '' %>>
+            <label for="radio-6" class="radio-label">First Team</label>
+         </div>
+         <div class="radio inline">
+            <input type="radio" id="radio-7" name="team" value="Reserve-Team" <%= user.team == 'Reserve-Team' ? 'checked' : '' %>>
+            <label for="radio-7" class="radio-label">Reserve Team</label>
+         </div>
+      </div>
+
+      <div class="form-group">
+         <label for="gender" class="text-light">Performance</label>
+         <div class="radio inline">
+            <input type="radio" id="radio-8" name="performance" value="Good" <%= user.performance == 'Good' ? 'checked' : '' %>>
+            <label for="radio-8" class="radio-label">Good</label>
+         </div>
+         <div class="radio inline">
+            <input type="radio" id="radio-9" name="performance" value="Bad" <%= user.performance == 'Bad' ? 'checked' : '' %>>
+            <label for="radio-9" class="radio-label">Bad</label>
+         </div>
+      </div>
+
+      <div class="form-group">
+         <button type="submit" class="btn text-dark update">Save</button>
+      </div>
+
+   </div>
+</form>
+     
+   </div>
+</main>
+<!-- /Main Site -->
+
+<!-- include footer -->
+<%- include('include/_footer')%>
+<!-- /include footer -->
