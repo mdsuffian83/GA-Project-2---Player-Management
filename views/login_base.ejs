@@ -19,6 +19,9 @@
             <div class="login form-group">
                <input type="password" class="login form-control" name="password" placeholder="password">
             </div>
+            <% if(locals.errorMessage != undefined){%>
+               <div style="color:red; font-size: 10px;"><%=errorMessage%></div>
+               <%} %>
             <button type="submit" class="login btn btn-success">Submit</button>
          </form>
       </div>

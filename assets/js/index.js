@@ -5,7 +5,7 @@ $("#add_user").submit(function(event){
 
 $("#update_user").submit(function(event){
    event.preventDefault();
-
+   console.log("Update User PUT!");
    var unindexed_array = $(this).serializeArray();
    var data = {}
 
@@ -24,7 +24,7 @@ $("#update_user").submit(function(event){
    })
 })
 
-if(window.location.pathname == "/"){
+if(window.location.pathname == "/index"){
    $ondelete = $(".table tbody td a.delete");
    $ondelete.click(function(){
       var id = $(this).attr("data-user-id")
