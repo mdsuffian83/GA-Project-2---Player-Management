@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const bodyparser = require("body-parser");
 const path = require('path');
 const app = express();
+const session = require("express-session"); // from login system
+const { v4: uuidv4 } = require('uuid'); // from login system
+
+const loginRouter = require('./server/routes/login_router');
 
 const connectDB = require('./server/database/connection');
 
@@ -17,6 +21,7 @@ app.use(morgan('tiny'));
 connectDB();
 
 // parse request to body-parser
+app.use(bodyparser.json()); // from login system
 app.use(bodyparser.urlencoded({extended:true}))
 
 // set view engine
@@ -28,8 +33,30 @@ app.use('/css', express.static(path.resolve(__dirname,"assets/css")))
 app.use('/img', express.static(path.resolve(__dirname,"assets/img")))
 app.use('/js', express.static(path.resolve(__dirname,"assets/js")))
 
+// from login system 
+app.use(session({
+   secret: uuidv4(),
+   resave: false,
+   saveUninitialzed: true
+}));
+
+// load static assets for login from login systm
+// app.use('/static', express.static(path.join(__dirname, 'public')))
+// app.use('/assets', express.static(path.join(__dirname, 'public/assets')))
+
 // load routers
 app.use('/', require('./server/routes/router'))
+
+// login routers
+// app.use('/', require('./server/routes/login_router'))
+
+// from login system
+app.use('/route', loginRouter);
+
+// from login system home route
+app.get('/', (req,res) => {
+   res.render('login_base', { title : "Login System"});
+})
 
 app.listen(PORT, ()=> {console.log(`Server is running on http://localhost:${PORT}`)})
 

@@ -1,0 +1,10 @@
+<%- include('include/_login_header') -%>
+
+<div class="login text-center center-div mt-5" id="login">
+   <div class="login container w-25 border py-5 mt-5">
+      <h3>Welcome to Player Management</h3>
+      <h5><%= locals.user ? user : "User" %></h5>
+      <a href="/route/logout">Logout</a>
+      <a href="/index">All Players</a>
+   </div>
+</div>

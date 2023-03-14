@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=PT+Sans&family=Roboto:wght@700&display=swap');
+
+.login body {
+   font-family: 'PT Sans', sans-serif;
+}
+
+.login center-div {
+   padding-top: 10%;
+}
+
+.login btn.btn-success {
+   padding: .4em 2em;
+}
+
+.login form {
+   padding: 0 3em;
+}
+
+#login .title > span {
+   font-size: .8em;
+}

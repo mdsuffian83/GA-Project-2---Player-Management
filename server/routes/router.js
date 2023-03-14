@@ -9,7 +9,7 @@ const taskController = require('../controller/taskController');
  *  @description Root Route
  *  @method GET /
  */
-route.get('/', services.homeRoutes);
+route.get('/index', services.homeRoutes);
 
 /**
  *  @description add users
@@ -53,4 +53,4 @@ route.get('/api/tasks', taskController.find);
 route.put('/api/tasks/:id', taskController.update);
 route.delete('/api/tasks/:id', taskController.delete);
 
-module.exports = route
+module.exports = route;
