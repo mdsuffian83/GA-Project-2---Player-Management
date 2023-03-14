@@ -15,7 +15,7 @@ $("#update_task").submit(function(event){
    console.log("Update_TASK button click")
 
    var request = {
-      "url" : `http://localhost:5000/api/tasks/${taskdata.id}`,
+      "url" : `http://localhost:3000/api/tasks/${taskdata.id}`,
       "method" : "PUT",
       "data" : taskdata
    }
@@ -31,7 +31,7 @@ if(window.location.pathname == "/tasks"){
       var id = $(this).attr("data-task-id");
 
       var request = {
-         "url" : `http://localhost:5000/api/tasks/${id}`,
+         "url" : `http://localhost:3000/api/tasks/${id}`,
          "method" : "DELETE"
       }
 
