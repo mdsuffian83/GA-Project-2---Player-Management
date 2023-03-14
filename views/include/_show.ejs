@@ -12,7 +12,7 @@
       <a class="btn border-shadow delete" data-user-id=<%= users[i]._id%>>
         <span class="text-gradient"><i class="fas fa-times"></i></span> 
       </a>
-      <a href="/add-task" class="btn border-shadow report">
+      <a href="/add-task?playername=<%= users[i].name%>" class="btn border-shadow report">
         <span class="text-gradient"><i class="fas fa-clipboard"></i></span>
      </a>
   </td>

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var schema = new mongoose.Schema({
+var modelschema = new mongoose.Schema({
    name : {
       type : String,
       required: true
@@ -19,6 +19,6 @@ var schema = new mongoose.Schema({
    },
 })
 
-const Userdb = mongoose.model('userdb', schema);
+const Userdb = mongoose.model('userdb', modelschema);
 
 module.exports = Userdb;

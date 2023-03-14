@@ -6,16 +6,18 @@ $("#update_task").submit(function(event){
    event.preventDefault();
 
    var unindexed_array = $(this).serializeArray();
-   var data = {}
+   var taskdata = {}
 
    $.map(unindexed_array, function(n, i){
       taskdata[n['name']] = n['value']
    })
 
+   console.log("Update_TASK button click")
+
    var request = {
-      "url" : `http://localhost:5000/api/tasks/${data.id}`,
+      "url" : `http://localhost:5000/api/tasks/${taskdata.id}`,
       "method" : "PUT",
-      "data" : data
+      "data" : taskdata
    }
 
    $.ajax(request).done(function(response){
