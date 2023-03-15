@@ -10,8 +10,8 @@ function checkUserIsAuthorised(req, res, cb) {
   }
 }
 exports.homeRoutes = (req, res) => {
-  // console.log(req.session);
-  // checkUserIsAuthorised(req, res, (request, resp) => {
+  console.log(req.session);
+  checkUserIsAuthorised(req, res, (request, resp) => {
     // Make a get request to /api/users
     axios
       .get('http://localhost:3000/api/users')
@@ -21,7 +21,8 @@ exports.homeRoutes = (req, res) => {
       .catch(err => {
         resp.send(err);
       });
-  }
+  });
+};
 
 exports.add_user = (req, res) => {
   res.render('add_user');
