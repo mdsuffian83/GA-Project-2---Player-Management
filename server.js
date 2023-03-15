@@ -37,8 +37,9 @@ app.use('/js', express.static(path.resolve(__dirname,"assets/js")))
 app.use(session({
    secret: uuidv4(),
    resave: false,
-   saveUninitialzed: true
+   saveUninitialized: true
 }));
+
 
 // load static assets for login from login systm
 // app.use('/static', express.static(path.join(__dirname, 'public')))
