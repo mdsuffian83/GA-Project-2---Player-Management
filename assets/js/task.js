@@ -6,6 +6,12 @@ $('#add_task').submit(function (event) {
   $.map(unindexed_array, function (n, i) {
     taskdata[n['name']] = n['value'];
   });
+
+  if (taskdata.user == undefined) {
+    taskdata['user'] = document.getElementById('userSelect').value;
+  }
+
+  console.log(taskdata);
   console.log('#add_task=>', taskdata);
   var request = {
     url: `http://localhost:3000/api/tasks`,
@@ -17,6 +23,7 @@ $('#add_task').submit(function (event) {
     .done(function (response) {
       console.log('add task done=>', response);
       alert('Data Updated Successfully!');
+      window.location.pathname = '/tasks';
     })
     .fail(xhr => {
       var err = eval('(' + xhr.responseText + ')');

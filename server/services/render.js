@@ -1,5 +1,6 @@
 const axios = require('axios');
 function checkUserIsAuthorised(req, res, cb) {
+  console.log('checkUserIsAuthorised=>', req.session);
   if (req.session.user == undefined || req.session.user_role != 'admin') {
     res.render('login_base', {
       title: 'Login System',
@@ -16,6 +17,7 @@ exports.homeRoutes = (req, res) => {
     axios
       .get('http://localhost:3000/api/users')
       .then(function (response) {
+        console.log('session time=>', request.session.cookie.maxAge);
         resp.render('index', { users: response.data });
       })
       .catch(err => {
@@ -46,6 +48,7 @@ exports.taskRoutes = (req, res) => {
     axios
       .get('http://localhost:3000/api/tasks')
       .then(function (response) {
+        console.log('session time=>', request.session.cookie.maxAge);
         resp.render('tasks', { tasks: response.data });
       })
       .catch(err => {

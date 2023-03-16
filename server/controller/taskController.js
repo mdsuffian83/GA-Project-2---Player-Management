@@ -37,6 +37,7 @@ exports.find = (req, res) => {
     const id = req.query.id;
 
     TaskModel.findById(id)
+      .populate('user')
       .then(data => {
         if (!data) {
           res.status(404).send({ message: 'Not found user with id' + id });

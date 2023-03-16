@@ -20,9 +20,10 @@
       <form method="POST" id="update_task">
          <div class="new_user">
             <div class="form-group"> 
-               <label for="name" class="text-light">Name</label>
+               <label for="name" class="text-light"><%= task.user.name%></label>
                <input type="hidden" name="id" value="<%= task._id%>">
-               <input type="text" name="name" readonly value="<%= task.id%>" placeholder="Mark Stoenis">
+               <input type="text" name="user" readonly value="<%= task.user._id%>">
+               <!-- <input type="text" name="user" readonly value="<%= task.user._id%>"> -->
             </div>
             <div class="form-group">
                <label for="training" class="text-light">Training</label>
