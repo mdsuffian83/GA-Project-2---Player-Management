@@ -59,10 +59,10 @@ exports.add_task = (req, res) => {
     .get('http://localhost:3000/api/users')
     .then(function (response) {
       console.log(response.data);
-      console.log('req.query.playername=>', req.query.playername);
+      console.log('req.query.playerid=>', req.query.playerid);
       res.render('add_task', {
         users: response.data,
-        params: { playername: req.query.playername },
+        params: { playerid: req.query.playerid },
       });
     })
     .catch(err => {

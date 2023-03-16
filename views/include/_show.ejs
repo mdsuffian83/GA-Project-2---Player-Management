@@ -1,7 +1,7 @@
 <% for(var i = 0; i < users.length; i++) { %>
 <tr>
    <td><%= i + 1 %></td>
-   <td><%= users[i].name %></td>
+   <td><%= users[i].name %> (<%= users[i]._id %>)</td>
    <td><%= users[i].position %></td>
    <td><%= users[i].team %></td>
    <td><%= users[i].performance %></td>
@@ -12,9 +12,9 @@
       <a class="btn border-shadow delete" data-user-id=<%= users[i]._id%>>
         <span class="text-gradient"><i class="fas fa-times"></i></span> 
       </a>
-      <!-- <a href="/tasks?playername=<%= users[i].name%>" class="btn border-shadow report">
+      <a href="/add-task?playerid=<%= users[i]._id%>" class="btn border-shadow report">
         <span class="text-gradient"><i class="fas fa-clipboard"></i></span>
-      </a> -->
+      </a>
   </td>
 </tr>
 <% } %>

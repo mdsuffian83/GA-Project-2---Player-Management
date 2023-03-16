@@ -1,45 +1,67 @@
-$("#add_task").submit(function(event){
-   alert("Data Inserted Successfully!");
-})
+$('#add_task').submit(function (event) {
+  event.preventDefault();
+  var unindexed_array = $(this).serializeArray();
+  var taskdata = {};
 
-$("#update_task").submit(function(event){
-   event.preventDefault();
+  $.map(unindexed_array, function (n, i) {
+    taskdata[n['name']] = n['value'];
+  });
+  console.log('#add_task=>', taskdata);
+  var request = {
+    url: `http://localhost:3000/api/tasks`,
+    method: 'POST',
+    data: taskdata,
+  };
 
-   var unindexed_array = $(this).serializeArray();
-   var taskdata = {}
+  $.ajax(request)
+    .done(function (response) {
+      console.log('add task done=>', response);
+      alert('Data Updated Successfully!');
+    })
+    .fail(xhr => {
+      var err = eval('(' + xhr.responseText + ')');
+      alert(`Data Updated failed(${xhr.status}): ${err.message}`);
+    });
+});
 
-   $.map(unindexed_array, function(n, i){
-      taskdata[n['name']] = n['value']
-   })
+$('#update_task').submit(function (event) {
+  event.preventDefault();
 
-   console.log("Update_TASK button click")
+  var unindexed_array = $(this).serializeArray();
+  var taskdata = {};
 
-   var request = {
-      "url" : `http://localhost:3000/api/tasks/${taskdata.id}`,
-      "method" : "PUT",
-      "data" : taskdata
-   }
+  $.map(unindexed_array, function (n, i) {
+    taskdata[n['name']] = n['value'];
+  });
 
-   $.ajax(request).done(function(response){
-      alert("Data Updated Successfully!");
-   })
-})
+  console.log('Update_TASK button click');
 
-if(window.location.pathname == "/tasks"){
-   $ondelete = $(".table tbody td a.delete");
-   $ondelete.click(function(){
-      var id = $(this).attr("data-task-id");
+  var request = {
+    url: `http://localhost:3000/api/tasks/${taskdata.id}`,
+    method: 'PUT',
+    data: taskdata,
+  };
 
-      var request = {
-         "url" : `http://localhost:3000/api/tasks/${id}`,
-         "method" : "DELETE"
-      }
+  $.ajax(request).done(function (response) {
+    alert('Data Updated Successfully!');
+  });
+});
 
-      if(confirm("Do you really want to delete this record?")){
-         $.ajax(request).done(function(response){
-            alert("Data Deleted Successfully!");
-            location.reload();
-         })
-      }
-   })
+if (window.location.pathname == '/tasks') {
+  $ondelete = $('.table tbody td a.delete');
+  $ondelete.click(function () {
+    var id = $(this).attr('data-task-id');
+
+    var request = {
+      url: `http://localhost:3000/api/tasks/${id}`,
+      method: 'DELETE',
+    };
+
+    if (confirm('Do you really want to delete this record?')) {
+      $.ajax(request).done(function (response) {
+        alert('Data Deleted Successfully!');
+        location.reload();
+      });
+    }
+  });
 }

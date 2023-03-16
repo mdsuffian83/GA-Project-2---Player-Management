@@ -17,21 +17,20 @@
 
       <!-- add user form -->
       <!-- form handling-->
-<form action="/api/tasks" method="POST" id="add_task">
+<form method="POST" id="add_task">
    <div class="new_user">
       <div class="form-group">
-         <label for="name" class="text-light">Name</label>
-         <select name="name" class="selectPlayerDropDown" 
-         <% if(params.playername != undefined) {%>
+         <label for="user" class="text-light">Name</label>
+         <select name="user" class="selectPlayerDropDown" 
+         <% if(params.playerid != undefined) {%>
             disabled
          <%}%> >
             <% for(var i = 0; i < users.length; i++) { 
-               console.log(users[i].name); 
-               var selected = (users[i].name == params.playername)? "selected":"";
+               <!-- console.log(users[i].name);  -->
+               var selected = (users[i]._id == params.playerid)? "selected":"";
                %>
-               <option value="<%=users[i].name%>" <%=selected %>><%=users[i].name%></option>
-               
-               <% } %>
+               <option value="<%=users[i]._id%>" <%=selected %>><%=users[i].name%> (<%=users[i]._id%>)</option> 
+            <% } %>
          </select>
          <!-- <input type="text" name="name" value="" placeholder="Mark Stoenis"> -->
       </div>
