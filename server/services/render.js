@@ -17,7 +17,7 @@ exports.homeRoutes = (req, res) => {
     axios
       .get('http://localhost:3000/api/users')
       .then(function (response) {
-        console.log('session time=>', request.session.cookie.maxAge);
+        // console.log('session time=>', request.session.cookie.maxAge);
         resp.render('index', { users: response.data });
       })
       .catch(err => {
@@ -48,7 +48,7 @@ exports.taskRoutes = (req, res) => {
     axios
       .get('http://localhost:3000/api/tasks')
       .then(function (response) {
-        console.log('session time=>', request.session.cookie.maxAge);
+        // console.log('session time=>', request.session.cookie.maxAge);
         resp.render('tasks', { tasks: response.data });
       })
       .catch(err => {

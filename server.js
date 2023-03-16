@@ -37,8 +37,8 @@ app.use('/js', express.static(path.resolve(__dirname, 'assets/js')));
 app.use(
   session({
     secret: uuidv4(),
-    resave: false, // true because touch is not implemented, will clear session data
-    saveUninitialized: true,
+    resave: true, // true because touch is not implemented, will clear session data
+    saveUninitialized: false,
     //  cookie: { maxAge: 10000, originalMaxAge: 10000 },
   })
 );

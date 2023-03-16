@@ -32,7 +32,7 @@ router.get('/dashboard', (req, res) => {
   console.log('Dashboard - Home Page');
   console.log(req.session);
   if (req.session.user && req.session.user_role == 'admin') {
-    console.log('session time=>', req.session.cookie.maxAge);
+    // console.log('session time=>', req.session.cookie.maxAge);
     res.render('login_dashboard', { user: req.session.user });
   } else {
     res.render('login_base', {
