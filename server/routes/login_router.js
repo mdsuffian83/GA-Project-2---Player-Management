@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-const credential = {
-  email: 'admin@gmail.com',
-  password: 'admin123',
-  role: 'admin',
-};
+// const credential = {
+//   email: 'admin@gmail.com',
+//   password: 'admin123',
+//   role: 'admin',
+// };
 
 // login user
 router.post('/login', (req, res) => {
