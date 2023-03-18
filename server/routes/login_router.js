@@ -1,4 +1,5 @@
 var express = require('express');
+const controller = require('../controller/loginController');
 var router = express.Router();
 
 // const credential = {
@@ -7,24 +8,24 @@ var router = express.Router();
 //   role: 'admin',
 // };
 
-// login user
-router.post('/login', (req, res) => {
-  if (
-    req.body.email == credential.email &&
-    req.body.password == credential.password
-  ) {
-    req.session.user = req.body.email;
-    req.session.user_role = credential.role;
-    res.redirect('/route/dashboard');
-    // res.end("Login Successful..!");
+// register user
+router.post('/register', (req, res) => {
+  console.log('req.body=>', req.body);
+  if (req.body.password == req.body.confirmPassword) {
+    // call api to do register
+    controller.register(req, res);
   } else {
     res.render('login_base', {
       title: 'Login System',
-      errorMessage: 'Invalid Username or Password',
+      errorMessage: 'Wrong confirmation Password',
+      tab: 'Register',
     });
-    // res.render('/', {errorMessage: "Invalid Username or Password"});
-    //res.end("Invalid Username or Password")
   }
+});
+
+// login user
+router.post('/login', (req, res) => {
+  controller.login(req, res);
 });
 
 // route for dashboard

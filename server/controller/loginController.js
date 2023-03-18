@@ -1,46 +1,85 @@
-const { Staff }= require('../models/staffMgt');
+var AdminModel = require('../model/login');
 const bcrypt = require('bcrypt');
-const { ObjectId } = require('mongodb');
 const saltRounds = 10;
-const mongoose = require('mongoose');
 
+const register = async (req, res) => {
+  console.log('Register=>', req.body);
+  // validate request
+  if (!req.body) {
+    res.status(400).send({ message: 'Register page empty' });
+    return;
+  }
 
-
-const login = async(req,res)=> {
+  const { email, password, nickname } = req.body;
+  let newUser;
   try {
-    const { staffId, password } = req.body;
+    newUser = new AdminModel({
+      email: email,
+      password: await bcrypt.hash(password, saltRounds),
+      nickname: nickname,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).render('login_base', {
+      title: 'Login System',
+      errorMessage: error.message || 'Some error occured while creating a user',
+      tab: 'Register',
+    });
+  }
 
-    // Query staff document by staffId field
-    const staff = await Staff.findOne({ staffId });
+  //P@ssw0rd
 
-    if(!staff){
-      return res.render('login',{msg: 'Invalid staffId or password'});
-    }
+  // save user in the database
+  newUser
+    .save(newUser)
+    .then(data => {
+      // res.send(data)
+      // res.redirect('/add-task');
+      console.log('new admin=>', data);
+      res.status(200).render('login_base', {
+        title: 'Login System',
+        success: 'Register',
+        tab: 'Login',
+      });
+    })
+    .catch(err => {
+      res.status(500).render('login_base', {
+        title: 'Login System',
+        errorMessage:
+          err.message ||
+          'Some error occured while creating a create operation for task',
+        tab: 'Register',
+      });
+    });
+};
 
-    const isMatch = await bcrypt.compare(password,staff.password);
-    if (!isMatch) {
-      return res.render('login',{msg:'Invalid staffId or password'})
-    }
-
-    req.session.user = {
-      userId: staff._id,
-      staffId: staff.staffId,
-      adminAccess: staff.adminAccess,
-    };
-    
-
-    if (staff.adminAccess) {
-      res.redirect(`/staff`);
+const login = async (req, res) => {
+  const user = await AdminModel.findOne({ email: req.body.email });
+  try {
+    const isCorrectPw = await bcrypt.compare(req.body.password, user.password);
+    if (isCorrectPw) {
+      req.session.user = req.body.email;
+      req.session.nickname = req.body.nickname;
+      req.session.user_role = 'admin';
+      res.redirect('/route/dashboard');
     } else {
-      res.redirect(`/staff/${staff._id}/leave`);
+      res.render('login_base', {
+        title: 'Login System',
+        errorMessage: 'Invalid Username or Password',
+        tab: 'Login',
+      });
     }
-  } catch (error){
-    console.error(error);
-    res.send('Internal Server Error')
+  } catch (error) {
+    console.log(error);
+    res.render('login_base', {
+      title: 'Login System',
+      errorMessage: 'Invalid Username or Password',
+      tab: 'Login',
+    });
   }
 };
 
-
 module.exports = {
   login,
+  register,
 };

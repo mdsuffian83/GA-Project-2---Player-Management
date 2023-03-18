@@ -1,30 +1,92 @@
 <%- include('include/_login_header') -%>
 
-   <div class="login text-center center-div" id="login">
-      <div class="login container w-25 border py-5">
-         <div class="login title pb-5">
+   <div class="login center-div" id="login">
+      <div class="login container w-75 border py-5">
+         <div class="login title pb-5 text-center">
             <h2 class="login font-weight-bold">Login System</h2>
             <span>Log in for the existing user</span>
             <% if(locals.logout){%>
                <div class="login alter alert-success text-center">
                   <%= logout %>
                </div>
-            <%} %>
-         </div>
-         <form action="/route/login" method="POST" class="pt-3">
-            <div class="login form-group">
-               <input type="email" class="login form-control" placeholder="email" name="email">
-               <small class="login form-text text-muted text-left">Register Email Address</small>
-            </div>
-            <div class="login form-group">
-               <input type="password" class="login form-control" name="password" placeholder="password">
-            </div>
-            <% if(locals.errorMessage != undefined){%>
-               <div style="color:red; font-size: 10px;"><%=errorMessage%></div>
                <%} %>
-            <button type="submit" class="login btn btn-success">Submit</button>
-         </form>
+         </div>
+         <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'LoginTab')">Login</button>
+            <button class="tablinks" onclick="openTab(event, 'RegisterTab')">Register</button>
+         </div>
+         <div id="LoginTab" class="tabcontent active" style="display:block;">
+            <form action="/route/login" method="POST" class="pt-3">
+               <div class="form-group pt-3">
+                  <label for="inputEmail">Email address</label>
+                  <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp"
+                     placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                     else.</small>
+               </div>
+               <div class="form-group pt-3">
+                  <label for="inputPassword">Password</label>
+                  <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
+               </div>
+               <% if(locals.errorMessage !=undefined){%>
+                  <div class="mt-3" style="color:red; font-size: 10px;">
+                     <%=errorMessage%>
+                  </div>
+                  <%} %>
+                     <button type="submit" class="btn btn-primary mt-3 mb-3">Submit</button>
+                     <!-- <div class="login form-group">
+                  <small class="login form-text text-muted text-left">Login Email</small>
+                  <input type="email" class="login form-control" placeholder="email" name="email">
+                  
+               </div>
+               <div class="login form-group">
+                  <input type="password" class="login form-control" name="password" placeholder="password">
+               </div>
+               <% if(locals.errorMessage !=undefined){%>
+                  <div style="color:red; font-size: 10px;">
+                     <%=errorMessage%>
+                  </div>
+                  <%} %>
+                     <button type="submit" class="login btn btn-success">Submit</button> -->
+            </form>
+         </div>
+         <div id="RegisterTab" class="tabcontent">
+            <form action="/route/register" method="POST" class="pt-3">
+               <div class="login form-group">
+                  <input type="email" class="login form-control" placeholder="Email" name="email">
+                  <small class="login form-text text-muted text-left">Register Email Address</small>
+               </div>
+               <div class="login form-group">
+                  <input type="text" class="login form-control" placeholder="Nickname" name="nickname">
+                  <small class="login form-text text-muted text-left">Your Nickname</small>
+               </div>
+               <div class="login form-group">
+                  <input type="password" class="login form-control" name="password" placeholder="Login Password">
+               </div>
+               <div class="login form-group">
+                  <input type="password" class="login form-control" name="confirmPassword"
+                     placeholder="Confirm Password">
+               </div>
+               <% if(locals.errorMessage !=undefined){%>
+                  <div style="color:red; font-size: 10px;">
+                     <%=errorMessage%>
+                  </div>
+                  <%} %>
+                     <button type="submit" class="login btn btn-success">Submit</button>
+            </form>
+         </div>
       </div>
    </div>
 
-<%- include('include/_login_footer') -%>
+   <%- include('include/_login_footer') -%>
+   <% if(locals.tab && locals.tab == 'Register'){
+      %><script>openTab(event, 'RegisterTab')</script><%
+   }
+   else{%>
+      <script>openTab(event, 'LoginTab')</script><%
+   }%>
+
+   <%if(locals.success && locals.success == "Register"){ %>
+      <script>alert("Register Successfully!")</script>
+   <%}%>
+ 

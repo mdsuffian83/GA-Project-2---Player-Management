@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const session = require('express-session'); // from login system
 const { v4: uuidv4 } = require('uuid'); // from login system
-
+const router = require('./server/routes/router');
 const loginRouter = require('./server/routes/login_router');
 
 const connectDB = require('./server/database/connection');
@@ -48,7 +48,7 @@ app.use(
 // app.use('/assets', express.static(path.join(__dirname, 'public/assets')))
 
 // load routers
-app.use('/', require('./server/routes/router'));
+app.use('/', router);
 
 // login routers
 // app.use('/', require('./server/routes/login_router'))
