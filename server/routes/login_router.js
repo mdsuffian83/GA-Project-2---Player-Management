@@ -1,7 +1,8 @@
-var express = require('express');
+const express = require('express');
 const controller = require('../controller/loginController');
-var router = express.Router();
-
+const authManager = require('./auth');
+const services = require('../services/render');
+const router = express.Router();
 
 // register user
 router.post('/register', (req, res) => {
@@ -24,22 +25,23 @@ router.post('/login', (req, res) => {
 });
 
 // route for dashboard
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', authManager.isAuthorised, (req, res) => {
   console.log('Dashboard - Home Page');
   console.log(req.session);
-  if (req.session.user && req.session.user_role == 'admin') {
-    // console.log('session time=>', req.session.cookie.maxAge);
-    res.render('login_dashboard', { user: req.session.user });
-  } else {
-    res.render('login_base', {
-      title: 'Login System',
-      errorMessage: 'Unauthorize User',
-    });
-  }
+  res.render('login_dashboard', { user: req.session.user });
+  // if (req.session.user && req.session.user_role == 'admin') {
+  //   // console.log('session time=>', req.session.cookie.maxAge);
+  //   res.render('login_dashboard', { user: req.session.user });
+  // } else {
+  //   res.render('login_base', {
+  //     title: 'Login System',
+  //     errorMessage: 'Unauthorize User',
+  //   });
+  // }
 });
 
 // route for logout
-router.get('/logout', (req, res) => {
+router.get('/logout', authManager.isAuthorised, (req, res) => {
   req.session.destroy(function (err) {
     if (err) {
       console.log(err);

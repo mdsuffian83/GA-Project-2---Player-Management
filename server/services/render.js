@@ -1,29 +1,18 @@
 const axios = require('axios');
-function checkUserIsAuthorised(req, res, cb) {
-  console.log('checkUserIsAuthorised=>', req.session);
-  if (req.session.user == undefined || req.session.user_role != 'admin') {
-    res.render('login_base', {
-      title: 'Login System',
-      errorMessage: 'Unauthorize User',
-    });
-  } else {
-    cb(req, res);
-  }
-}
+const userController = require('../controller/controller');
 exports.homeRoutes = (req, res) => {
-  console.log(req.session);
-  checkUserIsAuthorised(req, res, (request, resp) => {
-    // Make a get request to /api/users
-    axios
-      .get('http://localhost:3000/api/users')
-      .then(function (response) {
-        // console.log('session time=>', request.session.cookie.maxAge);
-        resp.render('index', { users: response.data });
-      })
-      .catch(err => {
-        resp.send(err);
-      });
-  });
+  console.log('Home Routes=>', req.session);
+  // Make a get request to /api/users
+  axios
+    .get('http://localhost:3000/api/users')
+    .then(function (response) {
+      // console.log('session time=>', request.session.cookie.maxAge);
+      console.log('user api=>', response.data);
+      res.render('index', { users: response.data });
+    })
+    .catch(err => {
+      res.send(err);
+    });
 };
 
 exports.add_user = (req, res) => {
@@ -43,18 +32,16 @@ exports.update_user = (req, res) => {
 
 // render for task
 exports.taskRoutes = (req, res) => {
-  checkUserIsAuthorised(req, res, (request, resp) => {
-    // Make a get request to /api/tasks
-    axios
-      .get('http://localhost:3000/api/tasks')
-      .then(function (response) {
-        // console.log('session time=>', request.session.cookie.maxAge);
-        resp.render('tasks', { tasks: response.data });
-      })
-      .catch(err => {
-        resp.send(err);
-      });
-  });
+  // Make a get request to /api/tasks
+  axios
+    .get('http://localhost:3000/api/tasks')
+    .then(function (response) {
+      // console.log('session time=>', request.session.cookie.maxAge);
+      res.render('tasks', { tasks: response.data });
+    })
+    .catch(err => {
+      res.send(err);
+    });
 };
 
 exports.add_task = (req, res) => {
