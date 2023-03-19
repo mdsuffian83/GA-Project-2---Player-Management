@@ -19,7 +19,7 @@ var loginSchema = new mongoose.Schema({
     validate: {
       validator: function (nName) {
         return !validator.isEmpty(nName); // if return false means error.
-        // lets say nickname is empty, -> true. !true -> false -> error
+        //nickname is empty, -> true. !true -> false -> error
       },
       message: 'NickName is required!',
     },

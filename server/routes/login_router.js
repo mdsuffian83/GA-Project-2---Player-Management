@@ -2,11 +2,6 @@ var express = require('express');
 const controller = require('../controller/loginController');
 var router = express.Router();
 
-// const credential = {
-//   email: 'admin@gmail.com',
-//   password: 'admin123',
-//   role: 'admin',
-// };
 
 // register user
 router.post('/register', (req, res) => {

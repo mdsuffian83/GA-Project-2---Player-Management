@@ -27,8 +27,6 @@ const register = async (req, res) => {
     });
   }
 
-  //P@ssw0rd
-
   // save user in the database
   newUser
     .save(newUser)
@@ -61,6 +59,7 @@ const login = async (req, res) => {
       req.session.user = req.body.email;
       req.session.nickname = req.body.nickname;
       req.session.user_role = 'admin';
+      req.session.userId = user._id; // Set userId property to user's id
       res.redirect('/route/dashboard');
     } else {
       res.render('login_base', {
@@ -79,7 +78,24 @@ const login = async (req, res) => {
   }
 };
 
+const isAuth = async (req, res, next) => {
+  const userId = req.session.userId;
+  console.log('userId isAuth: ', userId);
+  if (userId) {
+    const user = await User.findById(userId).exec();
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      res.status(403).send('Forbidden');
+    }
+  } else {
+    res.redirect('/');
+  }
+};
+
 module.exports = {
   login,
   register,
+  isAuth,
 };
