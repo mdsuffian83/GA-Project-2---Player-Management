@@ -75,13 +75,23 @@ Currently, there are no tests for this project. If you plan to add tests, explai
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-To deploy this application, follow these steps:
+To deploy the application, follow these steps:
 
-1. Ensure that you have met all the prerequisites mentioned above.
-2. Set up your production environment, such as a VPS or a hosting platform that supports Node.js.
-3. Configure your production environment with the required environment variables (e.g., database connection details).
-4. Transfer the application files to the server and run `npm install` to install dependencies.
-5. Start the application using a process manager, like PM2 or forever.
+- Ensure that you have met all the prerequisites mentioned above.
+- Set up your production environment, such as a VPS or a hosting platform that supports Node.js.
+- Configure your production environment with the required environment variables (e.g., database connection details).
+- Transfer the application files to the server and run npm install to install dependencies.
+- Start the application using a process manager, like PM2 or forever.
+- Alternatively, you can also deploy the application using a cloud platform like Heroku. To deploy the application on Heroku, follow these steps:
+
+- Create a new app on Heroku and connect it to your GitHub repository.
+- Configure the required environment variables on Heroku.
+- Enable automatic deploys from your GitHub repository.
+- Deploy the application manually or wait for the automatic deploy to run.
+- You can see a live of the application deployed on a cloud platform at 
+
+https://leggings-cuttlefish.cyclic.app.
+
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
